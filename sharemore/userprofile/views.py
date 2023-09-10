@@ -14,7 +14,7 @@ from core.context_processors import navigation
 
 def vendor_page(request, pk):
     user = User.objects.get(pk=pk)
-    items = user.items.all()
+    items = user.items.filter(is_deleted=False)
     
     context = {
         'user':user,
