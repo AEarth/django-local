@@ -2,6 +2,17 @@ from django.shortcuts import render
 
 from store.models import Item, Category
 from core.context_processors import navigation
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+
+from store.models import Item, Category, LendRequest, RequestItems
+from store.forms import LendRequestForm
+from store.cart import Cart
+
    
 def base(request):
     return render(request, 'core/base.html', {

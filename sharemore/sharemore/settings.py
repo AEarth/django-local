@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'core',
     'userprofile',
     'store',
+    'django_extensions',
+    'django_htmx'
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'sharemore.urls'
@@ -127,7 +130,14 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

@@ -11,14 +11,10 @@
       <!-- head -->
       <thead>
         <tr>
-          <th>
-            <label>
-              <input type="checkbox" class="checkbox" />
-            </label>
-          </th>
-          <th>Product Name</th>
-          <th>Value</th>
-          <th>Quantity</th>
+          <th>Owner</th>
+          <th>Item</th>
+          <th class="text-center">Value</th>
+          <th class="text-center">Quantity</th>
           <th></th>
         </tr>
       </thead>
@@ -28,16 +24,23 @@
               <tbody>
                 <!-- row 1 -->
                 <tr>
-                  <th>
-                    <label>
-                      <input type="checkbox" class="checkbox" />
-                    </label>
-                  </th>
+                  <td>
+                    <div class="flex items-center space-x-3">
+                      <div class="avatar">
+                        <div class="mask mask-circle w-12 h-12">
+                          <img src={{ item.item.user.userprofile.get_thumbnail }}/>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="font-bold">{% firstof item.item.user.get_full_name item.item.user.username %} </div>
+                      </div>
+                    </div>
+                  </td>
                   <td>
                     <div class="flex items-center space-x-3">
                       <div class="avatar">
                         <div class="mask mask-squircle w-12 h-12">
-                          <img src={{ item.item.image.url }} alt={{ item.item.title }} />
+                          <img src={{ item.item.get_thumbnail }} alt={{ item.item.title }} />
                         </div>
                       </div>
                       <div>
@@ -46,19 +49,35 @@
                       </div>
                     </div>
                   </td>
-                  <td>
-                    ${{item.item.get_display_value}}
+                  <td class="text-right">
+                    ${{ item.item.get_display_value }}
                     <br/>
                     {% comment %} <span class="badge badge-ghost badge-sm">Desktop Support Technician</span> {% endcomment %}
                   </td>
-                  <td>{{item.quantity}}</td>
+                  <td class="text-center">
+                    
+                    <a href="{% url 'change_quantity' item.id %}?action=increase">+</a>
+                      {{item.quantity}}
+                    <a href="{% url 'change_quantity' item.id %}?action=decrease">-</a>
+                  </td>
                   <th>
-                    <button class="btn btn-ghost btn-xs">details</button>
+                    <a href = {% url 'remove_from_cart' item.id %} class="btn btn-ghost btn-xs">
+                        <i class="fa fa-close"></i>
+                    </a>
                   </th>
                 </tr>
               
 
         {% comment %} {% with product=item.product %} {% endcomment %}
 {% endfor %}
+
+    <th></th>
+    <th class="text-left">Total</th>
+    <th>${{cart.get_total_cost}}</th>
+    <th>
+      <a href={% url 'lend_request' %} class ="btn btn-xs">Request</a>
+    </th>
+    <th></th>
+
 
 {% endblock %}

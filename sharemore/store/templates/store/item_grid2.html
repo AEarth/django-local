@@ -6,7 +6,7 @@
         <div>
             <a href="{% url 'item_detail'  item.category.slug item.slug %}">
             {% if item.image %}
-                <figure><img src="{{ item.image.url }}" alt="{{ item.title }}" /></figure>
+                <figure><img src="{{ item.get_image_med }}" alt="{{ item.title }}" /></figure>
             {% endif %}
             </a>
         </div>
@@ -18,7 +18,7 @@
         <span class="flex justify-around" >
             <a class="btn btn-sm btn-accent" href="{% url 'item_detail'  item.category.slug item.slug %}">
                     <h3 class="card-title">
-                        <div class="text-sm">{{ item.title }}</div>
+                        <div class="text-sm">{{ item.get_title }}</div>
                     </h3>
             </a>
         

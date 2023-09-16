@@ -38,11 +38,23 @@ class Cart(object):
             self.cart[item_id]['quantity'] += int(quantity)
 
             if self.cart[item_id]['quantity'] == 0:
-                self.remove(item_id)
+                self.remove_item(item_id)
         self.save()
+        
+    def remove_item(self, item_id):
+        item_id = str(item_id)
+        
+        if item_id in self.cart:
+            del self.cart[item_id]
+            self.save()
         
     def get_total_cost(self):
         for p in self.cart.keys():
             self.cart[str(p)]['item'] = Item.objects.get(pk=p)
              
         return int(sum(indv_item['item'].value * indv_item['quantity'] for indv_item in self.cart.values())) / 100
+    
+    def clear(self):
+        del self.session[settings.CART_SESSION_ID]
+        self.session.modified = True
+        

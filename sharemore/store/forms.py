@@ -1,7 +1,34 @@
 from django import forms
 
-from .models import Item
+from .models import Item, LendRequest
 
+class DateWidget(forms.DateInput):
+    input_type = 'date'
+
+
+class LendApproveForm(forms.ModelForm):
+    class Meta:
+        model = LendRequest
+        fields = ('status', 'pickup_date', 'return_date') 
+        widgets = {
+            'status': forms.Select(attrs=
+                {
+                'class': 'm-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-32 hidden-label'
+                }),
+            'pickup_date' : DateWidget,
+            'return_date' : DateWidget,
+        } 
+
+
+class LendRequestForm(forms.ModelForm):
+    class Meta:
+        model = LendRequest
+        fields = ('pickup_date', 'return_date') 
+        widgets = {
+            'pickup_date' : DateWidget,
+            'return_date' : DateWidget
+        } 
+        
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
@@ -34,3 +61,13 @@ class ItemForm(forms.ModelForm):
         }
 
 
+
+
+# class LendRequestForm(forms.Form):
+#     pickup_date = forms.DateField(widget=DateWidget)
+#     return_date = forms.DateField(widget=DateWidget)
+    
+#     def __init__(self, *args, **kwargs):
+#         super(LendRequestForm, self).__init__(*args, **kwargs)
+#         self.fields['pickup_date'].label = "Pickup Date"
+#         self.fields['return_date'].label = "Return Date"
