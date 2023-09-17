@@ -44,9 +44,16 @@ INSTALLED_APPS = [
     'core',
     'userprofile',
     'store',
-    'django_extensions',
-    'django_htmx'
+    'django_extensions', #using for pygraphviz
+    'django_htmx',
+    'tailwind',
+    'theme',
+    'simple_deploy'
 ]
+
+TAILWIND_APP_NAME = 'theme'
+
+# NPM_BIN_PATH = r"C:\Users\Arthur\AppData\Roaming\npm"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,3 +148,8 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
