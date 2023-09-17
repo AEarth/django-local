@@ -44,16 +44,17 @@ INSTALLED_APPS = [
     'core',
     'userprofile',
     'store',
-    'django_extensions', #using for pygraphviz
+    #'django_extensions', #using for pygraphviz
     'django_htmx',
-    'tailwind',
-    'theme',
+    'compressor',
+    #'tailwind',
+    #'theme',
     'simple_deploy'
 ]
 
 TAILWIND_APP_NAME = 'theme'
 
-# NPM_BIN_PATH = r"C:\Users\Arthur\AppData\Roaming\npm"
+NPM_BIN_PATH = r"C:\Users\Arthur\AppData\Roaming\npm.md"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -138,6 +139,7 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR.parent / "local-cdn" / "static"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -153,3 +155,7 @@ GRAPH_MODELS = {
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+COMPRESS_ROOT = BASE_DIR / 'static'
+COMPRESS_ENABLED = True
+STATICFILE_FINDERS = ('compressor.finders.CompressorFinder',)
